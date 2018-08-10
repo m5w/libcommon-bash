@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Copyright (C) 2018 Matthew Marting
 #
 # This program is free software: you can redistribute it and/or modify
@@ -19,7 +21,7 @@ if [[ -z ${LIBSUDO_SH+x} ]]; then
   source libdie.sh
 
   sudo::the_user_id_is() {
-    (( $EUID == $1 ))
+    (( EUID == $1 ))
   }
 
   sudo::the_user_id_is_or_die() {
@@ -43,7 +45,7 @@ if [[ -z ${LIBSUDO_SH+x} ]]; then
 
   sudo::the_home_is_the_user_home() {
     the_user_home="$(sudo::get_user_home "$EUID")"
-    [[ $HOME == $the_user_home ]]
+    [[ $HOME == "$the_user_home" ]]
   }
 
   sudo::the_home_is_the_user_home_or_die() {

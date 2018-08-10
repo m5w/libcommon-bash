@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Copyright (C) 2018 Matthew Marting
 #
 # This program is free software: you can redistribute it and/or modify
@@ -23,7 +25,7 @@ if [[ -z ${LIBDIE_SH+x} ]]; then
   }
 
   die::die() {
-    echo "$(die::get_the_prog)"': '"$@" >&2
+    echo "$(die::get_the_prog)"': '"$*" >&2
     return 1
   }
 
