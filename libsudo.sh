@@ -13,63 +13,59 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-# `prog' is inspired by the default argument of the same name to Python's
-# `argparse.ArgumentParser'.
-sudo::get_the_prog() {
-  echo "${BASH_SOURCE[-1]}"
-}
+if [[ -z ${LIBSUDO_SH+x} ]]; then
+  LIBSUDO_SH=''
 
-sudo::die() {
-  echo "$(sudo::get_the_prog): $@" >&2
-  return 1
-}
+  source libdie.sh
 
-sudo::the_user_id_is() {
-  (( $EUID == $1 ))
-}
+  sudo::the_user_id_is() {
+    (( $EUID == $1 ))
+  }
 
-sudo::the_user_id_is_or_die() {
-  sudo::the_user_id_is "$1" || sudo::die \
-    'you must execute this program as the user with ID='"$1"
-}
+  sudo::the_user_id_is_or_die() {
+    sudo::the_user_id_is "$1" || die::die \
+      'you must execute this program as the user with ID='"$1"
+  }
 
-sudo::the_user_is_the_superuser() {
-  sudo::the_user_id_is 0
-}
+  sudo::the_user_is_the_superuser() {
+    sudo::the_user_id_is 0
+  }
 
-sudo::the_user_is_the_superuser_or_die() {
-  sudo::the_user_is_the_superuser || sudo::die \
-    'you must execute this program as the superuser'
-}
+  sudo::the_user_is_the_superuser_or_die() {
+    sudo::the_user_is_the_superuser || die::die \
+      'you must execute this program as the superuser'
+  }
 
-sudo::get_user_home() {
-  # cf. <https://superuser.com/a/484330>
-  getent passwd "$1" | cut --delimiter=: --fields=6
-}
+  sudo::get_user_home() {
+    # cf. <https://superuser.com/a/484330>
+    getent passwd -- "$1" | cut --delimiter=: --fields=6
+  }
 
-sudo::the_home_is_the_user_home() {
-  the_user_home="$(sudo::get_user_home $EUID)"
-  [[ $HOME == $the_user_home ]]
-}
+  sudo::the_home_is_the_user_home() {
+    the_user_home="$(sudo::get_user_home "$EUID")"
+    [[ $HOME == $the_user_home ]]
+  }
 
-sudo::the_home_is_the_user_home_or_die() {
-  sudo::the_home_is_the_user_home || sudo::die \
-    'the home `'`
-   `"$HOME"`
-   `"'"' is not the user'"'"'s home `'`
-   `"$the_user_home"`
-   `"'"': '`
-   `'the home must be the user'"'"'s home: '`
-   `'perhaps you invoked sudo to execute this program without the `'`
-   `'-i, --login'`
-   `"'"' option'
-}
+  sudo::the_home_is_the_user_home_or_die() {
+    sudo::the_home_is_the_user_home || die::die \
+      'the home `'`
+     `"$HOME"`
+     `\'' is not the user'\''s home `'`
+     `"$the_user_home"`
+     `\'': '`
+     `'the home must be the user'\''s home: '`
+     `'perhaps you invoked sudo to execute this program without the `'`
+     `'-i, --login'`
+     `\'' option'
+  }
 
-sudo::sudo_user() {
-  [[ -n $SUDO_USER ]]
-}
+  sudo::sudo_user() {
+    [[ -n $SUDO_USER ]]
+  }
 
-sudo::sudo_user_or_die() {
-  sudo::sudo_user || sudo::die \
-    'you must invoke sudo to execute this program'
-}
+  sudo::sudo_user_or_die() {
+    sudo::sudo_user || die::die \
+      'you must invoke sudo to execute this program'
+  }
+
+fi
