@@ -16,7 +16,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 if [[ -z ${LIBDIE_SH+x} ]]; then
-  LIBDIE_SH=''
+  LIBDIE_SH=
 
   # `prog' is inspired by the default argument of the same name to Python's
   # `argparse.ArgumentParser'.
