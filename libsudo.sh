@@ -55,12 +55,12 @@ sudo::the_home_is_the_user_home() {
 sudo::the_home_is_the_user_home_or_die() {
   sudo::the_home_is_the_user_home || sudo::die \
     'the home `'`
-    `"$HOME"`
-    `"'"' is not the user'"'"'s home `'`
-    `"$the_user_home"`
-    `"'"': '`
-    `'this is usually because '`
-    `'you are not executing this program on a login shell'
+   `"$HOME"`
+   `"'"' is not the user'"'"'s home `'`
+   `"$the_user_home"`
+   `"'"': '`
+   `'this is usually because '`
+   `'you are not executing this program on a login shell'
 }
 
 sudo::sudo_user() {
