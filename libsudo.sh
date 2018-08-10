@@ -59,8 +59,10 @@ sudo::the_home_is_the_user_home_or_die() {
    `"'"' is not the user'"'"'s home `'`
    `"$the_user_home"`
    `"'"': '`
-   `'this is usually because '`
-   `'you are not executing this program on a login shell'
+   `'the home must be the user'"'"'s home: '`
+   `'perhaps you invoked sudo to execute this program without the `'`
+   `'-i, --login'`
+   `"'"' option'
 }
 
 sudo::sudo_user() {
