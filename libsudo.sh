@@ -16,7 +16,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 if [[ -z ${LIBSUDO_SH+x} ]]; then
-  LIBSUDO_SH=
+  readonly LIBSUDO_SH=
 
   source libdie.sh
 

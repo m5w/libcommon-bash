@@ -16,7 +16,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 if [[ -z ${LIBLOCK_SH+x} ]]; then
-  LIBLOCK_SH=
+  readonly LIBLOCK_SH=
 
   source libdie.sh
 
