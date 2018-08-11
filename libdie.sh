@@ -16,7 +16,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 if [[ -z ${LIBDIE_SH+x} ]]; then
-  LIBDIE_SH=
+  readonly LIBDIE_SH=
 
   # `prog' is inspired by the keyword parameter of the same name to the
   # constructor of Python's class `argparse.ArgumentParser'.
