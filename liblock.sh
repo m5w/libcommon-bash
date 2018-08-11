@@ -28,9 +28,9 @@ if [[ -z ${LIBLOCK_SH+x} ]]; then
     mkdir "$1" &>/dev/null || die::die \
       'could not make lock `'`
      `"$1"`
-     `\'': '`
-     `'must make lock: '`
+     `\'' but must: '`
      `'perhaps you are executing another process of this program'
+
     trap 'lock::free_lock "$1"' EXIT
   }
 

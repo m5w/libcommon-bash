@@ -54,8 +54,7 @@ if [[ -z ${LIBSUDO_SH+x} ]]; then
      `"$HOME"`
      `\'' is not the user'\''s home `'`
      `"$the_user_home"`
-     `\'': '`
-     `'the home must be the user'\''s home: '`
+     `\'' but must: '`
      `'perhaps you invoked sudo to execute this program without the `'`
      `'-i, --login'`
      `\'' option'
