@@ -18,8 +18,8 @@
 if [[ -z ${LIBDIE_SH+x} ]]; then
   LIBDIE_SH=
 
-  # `prog' is inspired by the default argument of the same name to Python's
-  # `argparse.ArgumentParser'.
+  # `prog' is inspired by the keyword parameter of the same name to the
+  # constructor of Python's class `argparse.ArgumentParser'.
   die::get_the_prog() {
     echo "${BASH_SOURCE[-1]}"
   }
