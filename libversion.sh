@@ -19,7 +19,6 @@ if [[ -z ${LIBVERSION_SH+x} ]]; then
   readonly LIBVERSION_SH=
 
   source liblock.sh
-  source libsudo.sh
 
   readonly BASENAME_DELIMITER='.'
   readonly REGEXESCAPED_BASENAME_DELIMITER='\.'
@@ -76,16 +75,17 @@ if [[ -z ${LIBVERSION_SH+x} ]]; then
     echo "$BASENAME_DELIMITER$1"
   }
 
-  # 1=PATH_EXT
+  # 1=PATH_EXT_REGEX
   version::path_version_tail_regex() {
     echo "$REGEXESCAPED_BASENAME_DELIMITER$1"
   }
 
   # 1=PATH_DIRNAME
   # 2=BASENAME_VERSION_HEAD
-  # 3=PATH_EXT
+  # 3=PATH_EXT_REGEX
   version::path_regex() {
-    echo "$(version::path_version_head_regex "$1" "$2")"`
+    echo \
+      "$(version::path_version_head_regex "$1" "$2")"`
      `"$PATH_VERSION_REGEX"`
      `"$(version::path_version_tail_regex "$3")"
   }
@@ -171,8 +171,6 @@ if [[ -z ${LIBVERSION_SH+x} ]]; then
   # PATH_VERSION_TAIL
   # PATH_REGEX
   version::make_the_next() {
-    sudo::the_home_is_the_user_home_or_die || return 1
-
     install --directory -- "$1" || return 1
 
     local -r lock_path="$(version::lock_path "$1" "$3")"
@@ -190,6 +188,7 @@ if [[ -z ${LIBVERSION_SH+x} ]]; then
     fi
 
     touch -- "$path" || return 1
+
     lock::free_lock "$lock_path"
     echo "$path"
   }

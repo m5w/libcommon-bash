@@ -26,7 +26,7 @@ if [[ -z ${LIBSUDO_SH+x} ]]; then
 
   sudo::the_user_id_is_or_die() {
     sudo::the_user_id_is "$1" || die::die \
-      'you must execute this program as the user with ID='"$1"
+        'you must execute this program as the user with ID='"$1"
   }
 
   sudo::the_user_is_the_superuser() {
@@ -35,7 +35,7 @@ if [[ -z ${LIBSUDO_SH+x} ]]; then
 
   sudo::the_user_is_the_superuser_or_die() {
     sudo::the_user_is_the_superuser || die::die \
-      'you must execute this program as the superuser'
+        'you must execute this program as the superuser'
   }
 
   sudo::get_user_home() {
@@ -50,14 +50,14 @@ if [[ -z ${LIBSUDO_SH+x} ]]; then
 
   sudo::the_home_is_the_user_home_or_die() {
     sudo::the_home_is_the_user_home || die::die \
-      'the home `'`
-     `"$HOME"`
-     `\'' is not the user'\''s home `'`
-     `"$the_user_home"`
-     `\'' but must: '`
-     `'perhaps you invoked sudo to execute this program without the `'`
-     `'-i, --login'`
-     `\'' option'
+        'the home `'`
+       `"$HOME"`
+       `\'' is not the user'\''s home `'`
+       `"$the_user_home"`
+       `\'' but must be: '`
+       `'perhaps you invoked sudo to execute this program without the `'`
+       `'-i, --login'`
+       `\'' option'
   }
 
   sudo::sudo_user() {
@@ -66,7 +66,7 @@ if [[ -z ${LIBSUDO_SH+x} ]]; then
 
   sudo::sudo_user_or_die() {
     sudo::sudo_user || die::die \
-      'you must invoke sudo to execute this program'
+        'you must invoke sudo to execute this program'
   }
 
 fi

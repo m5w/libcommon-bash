@@ -26,13 +26,13 @@ if [[ -z ${LIBLOCK_SH+x} ]]; then
 
   lock::make_lock() {
     mkdir "$1" &>/dev/null || die::die \
-      'could not make lock `'`
-     `"$1"`
-     `\'' but must: '`
-     `'perhaps you are executing another process of this program' \
+        'could not make lock `'`
+       `"$1"`
+       `\'' but must: '`
+       `'perhaps you are executing another process of this program' \
       || return 1
 
-    trap 'lock::free_lock "$1"' EXIT
+    trap 'lock::free_lock "'"${1@Q}"'"' EXIT
   }
 
 fi
