@@ -115,7 +115,9 @@ if [[ -z ${LIBVERSION_SH+x} ]]; then
   version::get_the_versions() {
     while IFS= read -d $'\0' -r path; do
       version::get_version "$2" "$3" "$path"
-    done < <(find "$1" -maxdepth 1 -regex "$4" -print0)
+    done < <(find "$1" -maxdepth 1 -regex "$4" -print0; echo -n "$?")
+
+    return "$path"
   }
 
   # 1=PATH_DIRNAME
