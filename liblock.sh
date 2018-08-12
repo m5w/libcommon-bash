@@ -29,7 +29,8 @@ if [[ -z ${LIBLOCK_SH+x} ]]; then
       'could not make lock `'`
      `"$1"`
      `\'' but must: '`
-     `'perhaps you are executing another process of this program'
+     `'perhaps you are executing another process of this program' \
+      || return 1
 
     trap 'lock::free_lock "$1"' EXIT
   }
