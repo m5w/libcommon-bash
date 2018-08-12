@@ -154,7 +154,7 @@ if [[ -z ${LIBVERSION_SH+x} ]]; then
   # 4=PATH_REGEX
   version::get_the_next_path() {
     local the_next_version
-    
+
     the_next_version="$(version::get_the_next_version "$1" "$2" "$3" "$4")" \
       || return 1
 
