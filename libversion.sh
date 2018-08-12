@@ -140,7 +140,12 @@ if [[ -z ${LIBVERSION_SH+x} ]]; then
   # 3=PATH_VERSION_TAIL
   # 4=PATH_REGEX
   version::get_the_next_version() {
-    echo "$(( $(version::get_the_version "$1" "$2" "$3" "$4") + 1 ))"
+    local the_version
+
+    the_version="$(version::get_the_version "$1" "$2" "$3" "$4")" || return 1
+
+    readonly the_version
+    echo "$(( the_version + 1 ))"
   }
 
   # 1=PATH_DIRNAME
@@ -148,10 +153,13 @@ if [[ -z ${LIBVERSION_SH+x} ]]; then
   # 3=PATH_VERSION_TAIL
   # 4=PATH_REGEX
   version::get_the_next_path() {
-    version::get_path \
-      "$2" \
-      "$3" \
-      "$(version::get_the_next_version "$1" "$2" "$3" "$4")"
+    local the_next_version
+    
+    the_next_version="$(version::get_the_next_version "$1" "$2" "$3" "$4")" \
+      || return 1
+
+    readonly the_next_version
+    version::get_path "$2" "$3" "$the_next_version"
   }
 
   # PATH_DIRNAME
@@ -161,18 +169,25 @@ if [[ -z ${LIBVERSION_SH+x} ]]; then
   # PATH_VERSION_TAIL
   # PATH_REGEX
   version::make_the_next() {
-    sudo::the_home_is_the_user_home_or_die
-    install --directory -- "$1"
+    sudo::the_home_is_the_user_home_or_die || return 1
+
+    install --directory -- "$1" || return 1
+
     local -r lock_path="$(version::lock_path "$1" "$3")"
-    lock::make_lock "$lock_path"
+
+    lock::make_lock "$lock_path" || return 1
 
     if [[ -e "$4" ]]; then
-      local -r path="$(version::get_the_next_path "$1" "$2" "$5" "$6")"
+      local path
+
+      path="$(version::get_the_next_path "$1" "$2" "$5" "$6")" || return 1
+
+      readonly path
     else
       local -r path="$4"
     fi
 
-    touch -- "$path"
+    touch -- "$path" || return 1
     lock::free_lock "$lock_path"
     echo "$path"
   }
