@@ -21,6 +21,7 @@ if [[ -z ${LIBLOCK_SH+x} ]]; then
   source libdie.sh
 
   lock::free_lock() {
+    trap - EXIT
     rm --force --recursive -- "$1"
   }
 
